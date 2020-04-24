@@ -7,8 +7,6 @@ export class LoginService {
 
     constructor(private apollo: Apollo) {}
 
-    res
-
     auth(username: string, password: string) {
         return this.apollo
                 .mutate({

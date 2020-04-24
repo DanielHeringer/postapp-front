@@ -1,3 +1,4 @@
+import { HomeService } from './home.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+
+  posts: any[]
+  page: number = 0 
+
+  constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
+    this.getFeed()
   }
+  
+  getFeed(){
+    this.homeService.getAllPosts(this.page)
+      .subscribe( (res: any) => {
+        this.posts = res.data.posts
+        console.log(this.posts)
+      })
+  }
+
 
 }
