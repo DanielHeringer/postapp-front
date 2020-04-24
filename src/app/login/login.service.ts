@@ -1,3 +1,4 @@
+import { onError } from 'apollo-link-error';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -18,7 +19,8 @@ export class LoginService {
                             token
                         }
                     }
-                    `
+                    `,
+                    errorPolicy: 'all'
                 })
     
          

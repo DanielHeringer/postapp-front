@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
@@ -13,7 +13,8 @@ export class NavbarComponent  {
   @Input()
   validToken: boolean
 
-  constructor(private router: Router) {
+  constructor(
+    private authService: AuthService,) {
     this.validToken = false
   }
 
@@ -24,8 +25,8 @@ export class NavbarComponent  {
   }
 
   logout(){
-    localStorage.clear()
-    this.router.navigate(['/login'])
+    this.authService.logout()
+    window.location.reload()
   }
 
   

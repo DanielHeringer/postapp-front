@@ -26,5 +26,20 @@ export class HomeComponent implements OnInit {
       })
   }
 
+  checkUpvoted(upvoteList) {
+    return upvoteList.find(upvote => upvote._id == localStorage.getItem('_id') )
+  }
+
+  upvoteComment(id) {
+
+  }
+  
+  upvotePost(id) {
+    return this.homeService.upvotePost(id)
+              .subscribe( (res: {data: any, extensions, errors}) => {
+                console.log(res)
+              })
+  }
+
 
 }

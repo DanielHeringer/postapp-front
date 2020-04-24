@@ -13,6 +13,8 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup
   loading: boolean = false
+  errorMsg
+  showError: boolean = false
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,17 +31,28 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    
     this.loading = true
 
-    const data = this.form.value
+    const values = this.form.value
     
-    if (data.username && data.password) {
-      this.loginService.auth(data.username, data.password).subscribe( (res: any) => {
-        localStorage.setItem('jwt', res.data.login.token)
-        localStorage.setItem('username', res.data.login.username)
+    if (values.username && values.password) {
+      this.loginService.auth(values.username, values.password)
+        .subscribe( (res: {data: any, extensions, errors}) => {
+
+        if(res.errors){
+          this.errorMsg = res.errors[0].message
+          this.showError = true
+        }
+        else {
+          localStorage.setItem('jwt', res.data.login.token)
+          localStorage.setItem('username', res.data.login.username)
+          localStorage.setItem('_id', res.data.login._id)
+          
+          this.router.navigate([''])
+        }
         
         this.loading = false
-        this.router.navigate([''])
       })
     }
     else {        

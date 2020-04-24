@@ -47,4 +47,23 @@ export class HomeService {
                 })
     
   }
+  
+  upvotePost(postID: string) {
+    return this.apollo
+                .mutate({
+                    mutation: gql`
+                    mutation {
+                      upvotePost(id: "${postID}") { 
+                          upvotes {
+                            _id
+                            username
+                          }
+                      }
+                    }
+                    `,
+                    errorPolicy: 'all'
+                })
+    
+    
+  }
 }

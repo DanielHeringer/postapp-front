@@ -9,6 +9,9 @@
               <label for="password">Password</label>
               <input type="password" class="form-control" id="password" placeholder="Password" name="password" formControlName="password">
             </div>
+            <div class="alert alert-danger" role="alert" *ngIf="showError">
+              {{ errorMsg }}
+            </div>
             <div class="row">
                 <button class="mx-auto btn btn-primary" (click)="login()">Login  <img src="../../assets/loading.gif" width="20px" *ngIf="loading"></button>
             </div>

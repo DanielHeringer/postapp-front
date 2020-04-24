@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -6,6 +7,7 @@ export class AuthService {
 
   constructor(
     public jwtHelper: JwtHelperService,  
+    public router: Router
   ) {}
 
   public isAuthenticated(): boolean {
@@ -16,5 +18,11 @@ export class AuthService {
       return false
     }
     return !this.jwtHelper.isTokenExpired(token) 
+  }
+
+  
+  logout(){
+    localStorage.clear()
+    this.router.navigate(['/login'])
   }
 }
