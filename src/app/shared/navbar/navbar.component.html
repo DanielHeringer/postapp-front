@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <a class="navbar-brand  " [routerLink]="['/']">PostApp</a>
+    <div *ngIf="validToken">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  <div *ngIf="validToken" class="collapse navbar-collapse" id="navbarNav">
+      <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link">Notifications <span class="badge badge-info align-text-bottom">9</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active">{{ username }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" (click)="logout()"> <img src="../../../assets/logout.png" class="align-text-bottom" width="20px"></a>
+        </li>
+      </ul>
+  </div>
+  </nav>

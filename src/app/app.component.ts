@@ -1,10 +1,25 @@
-import { Component } from '@angular/core';
+import { AuthService } from './auth/auth.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'graphqlapp-front';
+export class AppComponent implements OnInit{
+
+  validToken = false
+
+  constructor(private authService: AuthService) {
+    this.checkLogin()
+  }
+
+  checkLogin() { 
+    if(this.authService.isAuthenticated()){
+      this.validToken = true
+    }
+  }
+
+  ngOnInit(): void {
+  }
 }

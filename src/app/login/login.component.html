@@ -1,0 +1,17 @@
+<div class="row mt-5">
+    <div class="col-3 mx-auto">
+        <form [formGroup]="form">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" formControlName="username">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Password" name="password" formControlName="password">
+            </div>
+            <div class="row">
+                <button class="mx-auto btn btn-primary" (click)="login()">Login  <img src="../../assets/loading.gif" width="20px" *ngIf="loading"></button>
+            </div>
+          </form>
+    </div>
+</div>

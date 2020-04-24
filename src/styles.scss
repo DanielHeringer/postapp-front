@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+html, body, *{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+$h6-font-size: 0.8rem;
+$primary: rgb(240, 240, 240);
+$card-cap-bg: $primary;
+
+
+@import "~bootstrap/scss/bootstrap";
+
+.upvote{
+    color: rgb(13, 110, 255);
+    padding: 0;
+}
+.upvote:hover{
+    color: rgb(80, 146, 245);
+}
+button:focus {
+    box-shadow: none !important;
+    outline: none !important; 
+}
+
+.nav-link:hover{
+    cursor: pointer;
+}
