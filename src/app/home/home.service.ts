@@ -14,6 +14,7 @@ export class HomeService {
   getAllPosts(page) {
     return this.apollo
                 .query({
+                    fetchPolicy: "network-only",
                     query: gql`
                     {
                       posts{ 
@@ -54,6 +55,24 @@ export class HomeService {
                     mutation: gql`
                     mutation {
                       upvotePost(id: "${postID}") { 
+                          upvotes {
+                            _id
+                            username
+                          }
+                      }
+                    }
+                    `,
+                    errorPolicy: 'all'
+                })
+    
+    
+  }
+  upvoteComment(commentID: string) {
+    return this.apollo
+                .mutate({
+                    mutation: gql`
+                    mutation {
+                      upvoteComment(id: "${commentID}") { 
                           upvotes {
                             _id
                             username

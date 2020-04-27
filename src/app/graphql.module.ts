@@ -13,7 +13,6 @@ const authLink = setContext((_, { headers }) => {
       authorization: token ? `JWT ${token}` : "",
     }
   }
-  console.log(header)
   return header
 });
 

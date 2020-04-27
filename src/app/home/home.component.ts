@@ -19,10 +19,9 @@ export class HomeComponent implements OnInit {
   }
   
   getFeed(){
-    this.homeService.getAllPosts(this.page)
+    return this.homeService.getAllPosts(this.page)
       .subscribe( (res: any) => {
         this.posts = res.data.posts
-        console.log(this.posts)
       })
   }
 
@@ -31,15 +30,18 @@ export class HomeComponent implements OnInit {
   }
 
   upvoteComment(id) {
-
+    return this.homeService.upvotePost(id)
+              .subscribe( (res: {data: any, extensions, errors}) => {
+                this.getFeed()
+              })
   }
   
   upvotePost(id) {
     return this.homeService.upvotePost(id)
               .subscribe( (res: {data: any, extensions, errors}) => {
-                console.log(res)
+                this.getFeed()
               })
+
+            
   }
-
-
 }
