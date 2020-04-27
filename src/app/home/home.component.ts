@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
@@ -29,19 +28,21 @@ export class HomeComponent implements OnInit {
     return upvoteList.find(upvote => upvote._id == localStorage.getItem('_id') )
   }
 
-  upvoteComment(id) {
-    return this.homeService.upvotePost(id)
-              .subscribe( (res: {data: any, extensions, errors}) => {
-                this.getFeed()
-              })
-  }
   
   upvotePost(id) {
     return this.homeService.upvotePost(id)
               .subscribe( (res: {data: any, extensions, errors}) => {
                 this.getFeed()
               })
+  }
 
-            
+  makeComment(postID, comment){
+    return this.homeService.createComment(postID, comment)
+    .subscribe( (res: {data: any, extensions, errors}) => {
+      if(res.errors){
+        console.log(res.errors)
+      }
+      this.getFeed()
+    })
   }
 }

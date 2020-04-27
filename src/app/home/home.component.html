@@ -22,7 +22,20 @@
                 </button>
 
             </div>
-            <app-comments [comments]="post.comments"></app-comments>
+            <app-comments [comments]="post.comments" (reloadFeed)="getFeed()"></app-comments>
+       
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <form (ngSubmit)="makeComment(post._id, comment.value)">
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            [id]="'inputPost'+post._id" 
+                            placeholder="make a comment"
+                            #comment>
+                    </form>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

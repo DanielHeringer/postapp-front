@@ -64,9 +64,8 @@ export class HomeService {
                     `,
                     errorPolicy: 'all'
                 })
-    
-    
   }
+
   upvoteComment(commentID: string) {
     return this.apollo
                 .mutate({
@@ -84,5 +83,21 @@ export class HomeService {
                 })
     
     
+  }
+
+  createComment(postID: string, comment: string) {
+    return this.apollo
+                .mutate({
+                    mutation: gql`
+                    mutation{
+                      createComment(text: "${comment}", post:"${postID}"){
+                        _id
+                        text
+                        created
+                      }
+                    }
+                    `,
+                    errorPolicy: 'all'
+                })
   }
 }

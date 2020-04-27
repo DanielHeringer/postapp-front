@@ -1,7 +1,5 @@
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
-import { ApolloModule, Apollo } from 'apollo-angular';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { JwtModule, JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
@@ -27,7 +25,9 @@ import { AuthGuard } from './auth/auth.guard';
     LoginModule,
     JwtModule,
     GraphQLModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService, 

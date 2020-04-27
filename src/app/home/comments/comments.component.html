@@ -1,22 +1,19 @@
 <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="make a comment">
-    </li>
-    <div *ngFor="let comment of comments">
-        <li class="list-group-item" *ngIf="comment._id != null">
+    <div *ngFor="let comment of comments" >
+       
+        <li class="list-group-item bg-light rounded px-3 mx-2 my-1" *ngIf="comment._id != null">
             <div class="row">
                 <div class="font-weight-bold col-8">{{ comment.creator.username }}</div>
                 <div class="text-secondary col-4 text-right"> {{ comment.created | date: 'dd/MM/yyyy \'às\' HH:mm' }} </div>
             </div>
-            <p>
+            <p class="my-0">
                 {{ comment.text }}    
             </p>
-            <button type="button" class="btn btn-light btn-sm">
-                upvote  
-                <span class="badge badge-light align-text-bottom" [class.badge-light]="!checkUpvoted(comment.upvotes)" [class.badge-info]="checkUpvoted(comment.upvotes)">
+            <a class="text-primary" href="#!" (click)="upvoteComment(comment._id)">
+                upvote</a>
+            <span class="badge badge-light align-text-bottom ml-1" [class.badge-light]="!checkUpvoted(comment.upvotes)" [class.badge-info]="checkUpvoted(comment.upvotes)">
                     {{ comment.upvotes.length }}
-                </span>
-            </button>
+            </span>
         
         </li>
     </div>
