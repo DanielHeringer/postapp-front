@@ -26,3 +26,11 @@ $h6-font-size: 0.8rem;
 a{
     cursor: pointer;
 }
+
+#wrapFormat{
+  white-space: pre-wrap;
+}
+
+textarea{
+    resize: none;
+}

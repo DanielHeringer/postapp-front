@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
@@ -24,10 +25,6 @@ export class HomeComponent implements OnInit {
       })
   }
 
-  checkUpvoted(upvoteList) {
-    return upvoteList.find(upvote => upvote._id == localStorage.getItem('_id') )
-  }
-
   
   upvotePost(id) {
     return this.homeService.upvotePost(id)
@@ -45,4 +42,54 @@ export class HomeComponent implements OnInit {
       this.getFeed()
     })
   }
+  
+  updatePost(text: string, post: any){
+    post.loading = true
+    return this.homeService.updatePost(text, post._id)
+    .subscribe( (res: {data: any, extensions, errors}) => {
+      if(res.errors){
+        console.log(res.errors)
+      }
+      else {
+        this.getFeed()
+      }
+      post.loading = false
+    })
+  }
+
+  deletePost(postID: string){
+    let r = confirm("Certeza?");
+    if (r == true) {
+      return this.homeService.deletePost(postID)
+      .subscribe( (res: {data: any, extensions, errors}) => {
+        if(res.errors){
+          console.log(res.errors)
+        }
+        this.getFeed()
+      })
+    } 
+    
+  }
+
+  isOwner(post){
+    if(post.creator._id == localStorage.getItem('_id')){
+      return true
+    }
+    else{
+      return false
+    }
+  }
+  
+  
+  toggleEdit(data){
+    if(data.toggleEdit != true){
+      data.toggleEdit = true
+    }
+    else{
+      data.toggleEdit = false
+    }
+  }
+
+
+
 }

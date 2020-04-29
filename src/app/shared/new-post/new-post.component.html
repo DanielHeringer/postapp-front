@@ -1,0 +1,25 @@
+<div class="row mt-5">
+    <div class="col-5 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                    <div class="row">
+                        <div class="col-8">
+                            <span class="font-weight-bold">
+                                {{ username }}
+                            </span>
+                        </div>
+                    </div>
+            </div>
+            <div class="card-body">
+                <form class="mb-2">
+                    <textarea class="form-control" id="dataText" rows="3" placeholder="Make a post" #newText></textarea>
+                    
+                    <button type="button" class="btn btn-primary mt-2 px-5" (click)="createPost(newText)">
+                        Post <img src="../../assets/loading.gif" width="20px" *ngIf="loading">
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+      

@@ -1,0 +1,18 @@
+
+<a class="text-primary" href="#!" (click)="emitUpvote()">         
+    <span *ngIf="!checkUpvoted(data.upvotes)" >
+        upvote
+    </span>
+    <span *ngIf="checkUpvoted(data.upvotes)" >
+        upvoted
+    </span>
+</a>
+<div>
+    <span *ngIf="data.upvotes.length == 1" class="text-secondary">
+        upvoted for {{ data.upvotes[0].username }}
+    </span>
+    <span *ngIf="data.upvotes.length > 1"  class="text-secondary">
+        upvoted for {{ data.upvotes[0].username }} and {{ data.upvotes.length - 1 }} others 
+    </span>
+    
+</div>

@@ -100,4 +100,35 @@ export class HomeService {
                     errorPolicy: 'all'
                 })
   }
+
+  updatePost(text: string, postID: string) {
+    return this.apollo
+                .mutate({
+                    mutation: gql`
+                    mutation {
+                      updatePost(text: """${text}""", id:"${postID}") {
+                        _id
+                        text
+                        creator{
+                          _id
+                          username
+                        }
+                      }
+                    }
+                    `,
+                    errorPolicy: 'all'
+                })
+  }
+  deletePost(postID: string) {
+    return this.apollo
+                .mutate({
+                    mutation: gql`
+                    mutation {
+                      removePost(id:"${postID}")
+                    }
+                    `,
+                    errorPolicy: 'all'
+                })
+  }
+
 }

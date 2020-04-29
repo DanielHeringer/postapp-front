@@ -3,8 +3,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { JwtModule, JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
-import { GraphQLModule } from './graphql.module';
 
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
+import { GraphQLModule } from './graphql.module';
 import { AppRoutingModule } from './app.routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
@@ -27,7 +31,7 @@ import { AuthGuard } from './auth/auth.guard';
     GraphQLModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     AuthService, 

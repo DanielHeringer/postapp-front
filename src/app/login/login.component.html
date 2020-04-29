@@ -1,4 +1,4 @@
-<div class="row mt-5">
+<!-- <div class="row mt-5">
     <div class="col-3 mx-auto">
         <form [formGroup]="form">
             <div class="form-group">
@@ -17,4 +17,52 @@
             </div>
           </form>
     </div>
-</div>
+</div> -->
+<div class="container-fluid mt-5">
+		<div class="container bg-light p-5 rounded">
+			<div class="row">
+				<div class="col-md-5">
+ 					<form role="form" method="post" action="register.php">
+						<fieldset>							
+							<p class="text-uppercase pull-center"> SIGN UP:</p>	
+ 							<div class="form-group">
+								<input type="text" name="username" id="username" class="form-control input-lg" placeholder="username">
+							</div>
+							<div class="form-group">
+								<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+							</div>
+								<div class="form-group">
+								<input type="password" name="password2" id="password2" class="form-control input-lg" placeholder="Confirm your password">
+							</div>
+ 							<div>
+                  <input type="submit" class="btn btn-lg btn-primary"   value="Register">
+ 							</div>
+						</fieldset>
+					</form>
+				</div>
+				
+				<div class="col-md-2">
+					<!-------null------>
+				</div>
+				
+				<div class="col-md-5">
+ 				 		<form role="form">
+						<fieldset>							
+							<p class="text-uppercase"> Login using your account: </p>	
+ 								
+							<div class="form-group">
+								<input type="email" name="username" id="username" class="form-control input-lg" placeholder="username">
+							</div>
+							<div class="form-group">
+								<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+							</div>
+							<div>
+								<input type="submit" class="btn btn-md btn-primary" value="Sign In">
+							</div>
+								 
+ 						</fieldset>
+				</form>	
+				</div>
+			</div>
+		</div>
+	</div>

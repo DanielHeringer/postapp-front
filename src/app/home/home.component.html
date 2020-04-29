@@ -1,27 +1,39 @@
+<app-new-post (createdEmitter)="this.getFeed()"></app-new-post>
 
-<div class="row mt-5" *ngFor="let post of posts">
+<div class="row mt-5" *ngFor="let post of posts; index as i">
     <div class="col-5 mx-auto">
-        <div class="card ">
+        <div class="card">
             <div class="card-header">
-                <div class="row">
-                    <div class="font-weight-bold col-8">
-                        {{ post.creator.username }}
+                    <div class="row">
+                        <div class="col-8">
+                            <span class="font-weight-bold">
+                                {{ post.creator.username }}
+                            </span>
+        
+                            <div class="text-secondary">
+                                {{ post.created | date: 'dd/MM/yyyy \'às\' HH:mm' }}  
+                            </div>
+                        </div>
+                        
+                        <div class="text-right col-4" *ngIf="isOwner(post)">
+                            <button class="btn btn-light btn-sm mb-1 pt-0 pb-1" (click)="toggleEdit(post)">
+                                <img src="../../../assets/edit.png" width="15px">
+                            </button>
+                            <button class="btn btn-light btn-sm mb-1 pt-0 pb-1" (click)="deletePost(post._id)">
+                                <img src="../../../assets/delete.png" width="15px">
+                            </button>
+                        </div>
                     </div>
-                    <div class="text-secondary col-4 text-right">{{ post.created | date: 'dd/MM/yyyy \'às\' HH:mm' }}</div>
-                </div>
+                    
             </div>
             <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                <p>{{ post.text }}</p>
-                </blockquote>
-                <button type="button" class="btn btn-light btn-sm" (click)="upvotePost(post._id)"> 
-                    upvote 
-                    <span class="badge badge-light align-text-bottom" [class.badge-light]="!checkUpvoted(post.upvotes)" [class.badge-info]="checkUpvoted(post.upvotes)">
-                        {{ post.upvotes.length }}
-                    </span>
-                </button>
+                
+                <app-text-body [data]="post" [loading]="post.loading" (updateEmitter)="updatePost($event, post)"></app-text-body>
+
+               <app-upvote [data]="post" (upvoteEmitter)="upvotePost(post._id)"></app-upvote>
 
             </div>
+
             <app-comments [comments]="post.comments" (reloadFeed)="getFeed()"></app-comments>
        
             <ul class="list-group list-group-flush">
