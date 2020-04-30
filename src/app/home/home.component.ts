@@ -1,5 +1,5 @@
 import { HomeService } from './home.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -8,41 +8,75 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  @Input()
+  user: string
 
-  posts: any[]
-  page: number = 0 
+  @Input()
+  singlePost: string
+
+  posts: any[] = []
+  page = 0
+
+  loadingFeed = false
 
   constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
     this.getFeed()
   }
-  
+
   getFeed(){
-    return this.homeService.getAllPosts(this.page)
-      .subscribe( (res: any) => {
-        this.posts = res.data.posts
-      })
+    this.loadingFeed = true
+    if(this.user){
+      return this.homeService.getPostsByUsername(this.user, this.page)
+        .subscribe( (res:  {data: any}) => {
+          this.posts = this.posts.concat(res.data.postsByUser)
+          this.loadingFeed = false
+        })
+    }
+    else if(this.singlePost){
+      return this.homeService.getPostByID(this.singlePost)
+        .subscribe( (res:  {data: any}) => {
+          this.posts = [res.data.postByID]
+          console.log(this.posts)
+          this.loadingFeed = false
+        })
+    }
+    else{
+      return this.homeService.getAllPosts(this.page)
+        .subscribe( (res:  {data: any}) => {
+          this.posts = this.posts.concat(res.data.posts)
+          this.loadingFeed = false
+        })
+    }
+
   }
 
-  
-  upvotePost(id) {
-    return this.homeService.upvotePost(id)
+  addPost(post){
+    this.posts.unshift(post)
+  }
+
+  upvotePost(post) {
+    return this.homeService.upvotePost(post._id)
               .subscribe( (res: {data: any, extensions, errors}) => {
-                this.getFeed()
+                post.upvotes = res.data.upvotePost.upvotes
               })
   }
 
-  makeComment(postID, comment){
-    return this.homeService.createComment(postID, comment)
+  makeComment(post: any, comment){
+    return this.homeService.createComment(post._id, comment.value)
     .subscribe( (res: {data: any, extensions, errors}) => {
       if(res.errors){
         console.log(res.errors)
       }
-      this.getFeed()
+      else{
+        post.comments.push(res.data.createComment)
+      }
+      comment.value = ''
+
     })
   }
-  
+
   updatePost(text: string, post: any){
     post.loading = true
     return this.homeService.updatePost(text, post._id)
@@ -51,42 +85,31 @@ export class HomeComponent implements OnInit {
         console.log(res.errors)
       }
       else {
-        this.getFeed()
+        post.text = res.data.updatePost.text
       }
       post.loading = false
     })
   }
 
-  deletePost(postID: string){
-    let r = confirm("Certeza?");
-    if (r == true) {
-      return this.homeService.deletePost(postID)
-      .subscribe( (res: {data: any, extensions, errors}) => {
-        if(res.errors){
-          console.log(res.errors)
-        }
-        this.getFeed()
-      })
-    } 
-    
+  deletePost(post: any){
+    return this.homeService.deletePost(post._id)
+    .subscribe( (res: {data: any, extensions, errors}) => {
+      if(res.errors){
+        console.log(res.errors)
+      }
+      else {
+        let index = this.posts.findIndex( data => data._id == post._id)
+        this.posts.splice(index, 1)
+      }
+    })
   }
 
-  isOwner(post){
-    if(post.creator._id == localStorage.getItem('_id')){
-      return true
-    }
-    else{
-      return false
-    }
-  }
-  
-  
-  toggleEdit(data){
-    if(data.toggleEdit != true){
-      data.toggleEdit = true
-    }
-    else{
-      data.toggleEdit = false
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      this.page++
+      this.getFeed()
     }
   }
 

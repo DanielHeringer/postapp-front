@@ -16,6 +16,9 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    HomeComponent
   ]
 })
 export class HomeModule { }

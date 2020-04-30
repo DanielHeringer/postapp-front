@@ -16,7 +16,7 @@ export class CommentsService {
                 .mutate({
                     mutation: gql`
                     mutation {
-                      upvoteComment(id: "${commentID}") { 
+                      upvoteComment(id: "${commentID}") {
                           upvotes {
                             _id
                             username
@@ -26,8 +26,8 @@ export class CommentsService {
                     `,
                     errorPolicy: 'all'
                 })
-    
-    
+
+
   }
 
   updateComment(text: string, commentID: string) {
@@ -37,6 +37,7 @@ export class CommentsService {
                     mutation {
                       updateComment(text: """${text}""", comment:"${commentID}") {
                         _id
+                        text
                       }
                     }
                     `,

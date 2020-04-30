@@ -1,5 +1,5 @@
 
-<a class="text-primary" href="#!" (click)="emitUpvote()">         
+<a class="text-primary" (click)="emitUpvote()">
     <span *ngIf="!checkUpvoted(data.upvotes)" >
         upvote
     </span>
@@ -9,10 +9,15 @@
 </a>
 <div>
     <span *ngIf="data.upvotes.length == 1" class="text-secondary">
-        upvoted for {{ data.upvotes[0].username }}
+        upvoted for
+        <a class="font-weight-bold text-secondary" [routerLink]="['/profile/'+ data.upvotes[0].username]">
+            {{ data.upvotes[0].username }}</a>
     </span>
     <span *ngIf="data.upvotes.length > 1"  class="text-secondary">
-        upvoted for {{ data.upvotes[0].username }} and {{ data.upvotes.length - 1 }} others 
+        upvoted for
+        <a class="font-weight-bold text-secondary" [routerLink]="['/profile/'+ data.upvotes[0].username]">
+            {{ data.upvotes[0].username }}</a>
+         and {{ data.upvotes.length - 1 }} others
     </span>
-    
+
 </div>

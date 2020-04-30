@@ -16,6 +16,29 @@ export class NewPostService {
                     mutation {
                       createPost(text:"""${text}""") {	
                         _id
+                        text
+                        created
+                        creator{
+                          _id
+                          username
+                        }
+                        upvotes{
+                          _id
+                          username
+                        }
+                        comments{
+                          _id
+                          text
+                          created
+                          creator{
+                            _id
+                            username
+                          }
+                          upvotes{
+                            _id
+                            username
+                          }
+                        }
                       }
                     }
                     `,

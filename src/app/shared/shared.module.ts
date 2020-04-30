@@ -8,6 +8,8 @@ import { UpvoteComponent } from './upvote/upvote.component';
 import { TextBodyComponent } from './text-body/text-body.component';
 import { CommentsComponent } from './comments/comments.component';
 import { NewPostComponent } from './new-post/new-post.component';
+import { ErrorAlertComponent } from './error-alert/error-alert.component';
+import { MenuComponent } from './menu/menu.component';
 
 
 
@@ -17,7 +19,9 @@ import { NewPostComponent } from './new-post/new-post.component';
     CommentsComponent,
     UpvoteComponent,
     TextBodyComponent,
-    NewPostComponent
+    NewPostComponent,
+    ErrorAlertComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,
@@ -26,11 +30,13 @@ import { NewPostComponent } from './new-post/new-post.component';
     ReactiveFormsModule
   ],
   exports:[
-    NavbarComponent, 
-    CommentsComponent, 
-    UpvoteComponent, 
+    NavbarComponent,
+    CommentsComponent,
+    UpvoteComponent,
     TextBodyComponent,
-    NewPostComponent
+    NewPostComponent,
+    ErrorAlertComponent,
+    MenuComponent
   ]
 })
 export class SharedModule { }

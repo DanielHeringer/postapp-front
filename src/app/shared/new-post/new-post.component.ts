@@ -27,7 +27,7 @@ export class NewPostComponent implements OnInit {
       }
       text.value = ''
       this.loading = false
-      this.createdEmitter.emit(true)
+      this.createdEmitter.emit(res.data.createPost)
     })
   }
 

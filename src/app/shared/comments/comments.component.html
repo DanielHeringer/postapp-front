@@ -1,35 +1,28 @@
 <ul class="list-group list-group-flush">
     <div *ngFor="let comment of comments" >
-       
+
         <li class="list-group-item bg-light rounded px-3 mx-2 my-1" *ngIf="comment._id != null">
             <div class="row mb-0">
                 <div class="col-8 mb-2">
-                    <span class="font-weight-bold">
+                    <a class="font-weight-bold text-dark" [routerLink]="['/profile/'+comment.creator.username]">
                         {{ comment.creator.username }}
-                    </span>
+                    </a>
 
                     <div class="text-secondary">
-                        {{ comment.created | date: 'dd/MM/yyyy \'às\' HH:mm' }}  
+                        {{ comment.created | date: 'dd/MM/yyyy \'às\' HH:mm' }}
                     </div>
                 </div>
-                <div class="text-secondary col-4 text-right">
-                    <div *ngIf="isOwner(comment)">
-                        <button class="btn btn-light btn-sm align-text-middle mb-1 pt-0 pb-1" (click)="toggleEdit(comment)">
-                            <img src="../../../assets/edit.png" width="15px">
-                        </button>
-                        <button class="btn btn-light btn-sm align-text-middle mb-1 pt-0 pb-1" (click)="deleteComment(comment._id)">
-                            <img src="../../../assets/delete.png" width="15px">
-                        </button>
-                    </div>
+                <div class="col-4">
+                  <app-menu [data]="comment" (deleteEmitter)="deleteComment(comment._id)"></app-menu>
                 </div>
             </div>
-            
-            
-            
-            <app-text-body [data]="comment" (updateEmitter)="updateComment($event, comment._id)"></app-text-body>
-                
-            <app-upvote [data]="comment" (upvoteEmitter)="upvoteComment(comment._id)"></app-upvote>
-        
+
+
+
+            <app-text-body [data]="comment" (updateEmitter)="updateComment($event, comment)"></app-text-body>
+
+            <app-upvote [data]="comment" (upvoteEmitter)="upvoteComment(comment)"></app-upvote>
+
         </li>
     </div>
 </ul>

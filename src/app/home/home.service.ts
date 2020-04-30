@@ -17,7 +17,7 @@ export class HomeService {
                     fetchPolicy: "network-only",
                     query: gql`
                     {
-                      posts{ 
+                      posts(page: ${page}){
                         _id
                         text
                         created
@@ -46,15 +46,91 @@ export class HomeService {
                     }
                     `
                 })
-    
+
   }
-  
+
+  getPostByID(id) {
+    return this.apollo
+                .query({
+                    fetchPolicy: "network-only",
+                    query: gql`
+                    {
+                      postByID(id: "${id}"){
+                        _id
+                        text
+                        created
+                        upvotes {
+                          _id
+                          username
+                        }
+                        creator{
+                          _id
+                          username
+                        }
+                        comments{
+                          _id
+                          text
+                          created
+                          upvotes{
+                            _id
+                            username
+                          }
+                          creator{
+                            _id
+                            username
+                          }
+                        }
+                      }
+                    }
+                    `
+                })
+
+  }
+
+  getPostsByUsername(username:string, page: number) {
+    return this.apollo
+                .query({
+                    fetchPolicy: "network-only",
+                    query: gql`
+                    {
+                      postsByUser(username: "${username}", page: ${page}){
+                        _id
+                        text
+                        created
+                        upvotes {
+                          _id
+                          username
+                        }
+                        creator{
+                          _id
+                          username
+                        }
+                        comments{
+                          _id
+                          text
+                          created
+                          upvotes{
+                            _id
+                            username
+                          }
+                          creator{
+                            _id
+                            username
+                          }
+                        }
+                      }
+                    }
+                    `
+                })
+
+  }
+
   upvotePost(postID: string) {
     return this.apollo
                 .mutate({
                     mutation: gql`
                     mutation {
-                      upvotePost(id: "${postID}") { 
+                      upvotePost(id: "${postID}") {
                           upvotes {
                             _id
                             username
@@ -71,7 +147,7 @@ export class HomeService {
                 .mutate({
                     mutation: gql`
                     mutation {
-                      upvoteComment(id: "${commentID}") { 
+                      upvoteComment(id: "${commentID}") {
                           upvotes {
                             _id
                             username
@@ -81,8 +157,8 @@ export class HomeService {
                     `,
                     errorPolicy: 'all'
                 })
-    
-    
+
+
   }
 
   createComment(postID: string, comment: string) {
@@ -94,6 +170,14 @@ export class HomeService {
                         _id
                         text
                         created
+                        creator {
+                          _id
+                          username
+                        }
+                        upvotes{
+                          _id
+                          username
+                        }
                       }
                     }
                     `,

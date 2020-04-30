@@ -22,7 +22,6 @@ export class TextBodyComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.edit)
   }
 
   updateEmit(text){

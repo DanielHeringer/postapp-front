@@ -23,39 +23,42 @@ export class CommentsComponent implements OnInit {
     return upvoteList.find(upvote => upvote._id == localStorage.getItem('_id') )
   }
 
-  
-  upvoteComment(id) {
-    return this.commentsService.upvoteComment(id)
+
+  upvoteComment(comment) {
+    return this.commentsService.upvoteComment(comment._id)
               .subscribe( (res: {data: any, extensions, errors}) => {
-                this.reloadFeed.emit(true)
+                comment.upvotes = res.data.upvoteComment.upvotes
               })
   }
 
-  
-  updateComment(text: string, postID: string){
-    return this.commentsService.updateComment(text, postID,)
+
+  updateComment(text: string, comment){
+    return this.commentsService.updateComment(text, comment._id)
     .subscribe( (res: {data: any, extensions, errors}) => {
       if(res.errors){
         console.log(res.errors)
       }
-      this.reloadFeed.emit(true)
+      else {
+        comment.text = res.data.updateComment.text
+      }
     })
   }
+
   deleteComment(commentID: string){
-    let r = confirm("Certeza?");
-    if (r == true) {
       return this.commentsService.deleteComment(commentID)
       .subscribe( (res: {data: any, extensions, errors}) => {
         if(res.errors){
           console.log(res.errors)
         }
-        this.reloadFeed.emit(true)
+        else{
+          let index = this.comments.findIndex( data => data._id == commentID)
+          this.comments.splice(index, 1)
+        }
       })
-    } 
-    
+
   }
 
-  
+
   toggleEdit(comment){
     if(comment.toggleEdit != true){
       comment.toggleEdit = true

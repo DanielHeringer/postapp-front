@@ -1,0 +1,27 @@
+
+<form [formGroup]="formRegister">
+    <fieldset>							
+        <p class="pull-center">Sign Up:</p>	
+            <div class="form-group">
+                <input type="text" name="username" id="username" class="form-control input-lg" placeholder="username" formControlName="username">
+            </div>
+            <app-error-alert [showError]="verifyValidTouched('username', formRegister)" errorMsg="Username is required"></app-error-alert>
+
+            <div class="form-group">
+                <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" formControlName="password">
+            </div>
+            <app-error-alert [showError]="verifyValidTouched('password', formRegister)" errorMsg="Password is required"></app-error-alert>
+
+            <div class="form-group">
+                <input type="password" name="password2" id="password2" class="form-control input-lg" placeholder="Confirm your password" formControlName="password2">
+            </div>
+            <app-error-alert [showError]="formRegister.hasError('diff')" errorMsg="Passwords are not equal"></app-error-alert>
+
+            
+            <app-error-alert [showError]="showErrorRegister" [errorMsg]="errorMsg"></app-error-alert>
+            <div class="row">
+                <button class="mx-auto btn btn-primary" (click)="register()"> Register  <img src="../../assets/loading.gif" width="20px" *ngIf="loading"></button>
+            </div>
+           
+    </fieldset>
+</form>
